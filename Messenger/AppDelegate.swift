@@ -7,8 +7,8 @@
 
 import UIKit
 
-let applicationLifecycleIsOn: Bool = true
-let viewControllerLifecycleIsOn: Bool = true
+let applicationLifecycleIsOn: Bool = false
+let viewControllerLifecycleIsOn: Bool = false
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
-         let controller = ViewController()
+         let controller = ProfileViewController()
          window?.rootViewController = controller
          window?.makeKeyAndVisible()
         return true
