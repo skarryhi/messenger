@@ -19,7 +19,6 @@ class ProfileViewController: UIViewController {
                                            height: width * 0.64))
         iv.backgroundColor = #colorLiteral(red: 0.8949689865, green: 0.9089159369, blue: 0.1692225933, alpha: 1)
         iv.layer.cornerRadius = width * 0.32
-        view.addSubview(iv)
         return iv
     }()
     
@@ -30,7 +29,6 @@ class ProfileViewController: UIViewController {
         but.setTitle("Edit", for: .normal)
         but.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         but.setTitleColor(#colorLiteral(red: 0, green: 0.4793452024, blue: 0.9990863204, alpha: 1), for: .normal)
-        profilePhoto.addSubview(but)
         return but
     }()
     
@@ -41,10 +39,9 @@ class ProfileViewController: UIViewController {
                                         height: profilePhoto.frame.width * 0.7))
         lbl.textAlignment = .center
         lbl.font = UIFont.boldSystemFont(ofSize: 100)
-        var initials = profileName.text?.split(separator: " ").compactMap { $0.first}
+        var initials = profileName.text?.split(separator: " ").compactMap { $0.first }
         lbl.text = "\(initials?.first ?? " ")\(initials?.last ?? " ")"
         lbl.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-        profilePhoto.addSubview(lbl)
         return lbl
     }()
     
@@ -57,7 +54,6 @@ class ProfileViewController: UIViewController {
         lbl.numberOfLines = 0
         lbl.font = UIFont.boldSystemFont(ofSize: 24)
         lbl.text = "Marina Dudarenko"
-        view.addSubview(lbl)
         return lbl
     }()
     
@@ -68,7 +64,6 @@ class ProfileViewController: UIViewController {
                                         height: 120))
         lbl.numberOfLines = 0
         lbl.text = "UX/UI designer, web-designer\nMoscow, Russia"
-        view.addSubview(lbl)
         return lbl
     }()
     
@@ -82,21 +77,26 @@ class ProfileViewController: UIViewController {
         but.setTitleColor(#colorLiteral(red: 0, green: 0.4793452024, blue: 0.9990863204, alpha: 1), for: .normal)
         but.backgroundColor = #colorLiteral(red: 0.9646012187, green: 0.9647662044, blue: 0.9645908475, alpha: 1)
         but.layer.cornerRadius = 15
-        view.addSubview(but)
         return but
     }()
+    
+    // в init еще не проинициилизированы view поэтому никакой frame мы вывести не можем
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
-        profilePhoto.isHidden = false
-        profileName.isHidden = false
-        profileDescription.isHidden = false
-        editButton.isHidden = false
-        saveButton.isHidden = false
-        profileInitials.isHidden = false
+        print(editButton.frame)
+        addSubviews()
+    }
+    
+    private func addSubviews() {
+        view.addSubview(profilePhoto)
+        view.addSubview(profileName)
+        profilePhoto.addSubview(profileInitials)
+        view.addSubview(profileDescription)
+        profilePhoto.addSubview(editButton)
+        view.addSubview(saveButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,6 +110,8 @@ class ProfileViewController: UIViewController {
         if viewControllerLifecycleIsOn {
             print("ViewController:", #function)
         }
+        print(editButton.frame) // выведутся одинаковые значения, так как я вручную их прописываю.
+        // если делать через сториборд, то выведутся разные, так как нас просят поставить разные модели в сториборде и симуляторе от чего в ходе программы frame будет перерасчитан.
         super.viewDidAppear(animated)
     }
     
