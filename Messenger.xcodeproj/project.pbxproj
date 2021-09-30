@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		68688B8D2701D84600A99164 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68688B8C2701D84600A99164 /* AppDelegate.swift */; };
-		68688B912701D84600A99164 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68688B902701D84600A99164 /* ViewController.swift */; };
+		68688B912701D84600A99164 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68688B902701D84600A99164 /* ProfileViewController.swift */; };
 		68688B942701D84600A99164 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68688B922701D84600A99164 /* Main.storyboard */; };
 		68688B962701D84A00A99164 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68688B952701D84A00A99164 /* Assets.xcassets */; };
 		68688B992701D84A00A99164 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68688B972701D84A00A99164 /* LaunchScreen.storyboard */; };
@@ -17,7 +17,7 @@
 /* Begin PBXFileReference section */
 		68688B892701D84600A99164 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68688B8C2701D84600A99164 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		68688B902701D84600A99164 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		68688B902701D84600A99164 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		68688B932701D84600A99164 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		68688B952701D84A00A99164 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		68688B982701D84A00A99164 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				68688B8C2701D84600A99164 /* AppDelegate.swift */,
-				68688B902701D84600A99164 /* ViewController.swift */,
+				68688B902701D84600A99164 /* ProfileViewController.swift */,
 				68688B922701D84600A99164 /* Main.storyboard */,
 				68688B952701D84A00A99164 /* Assets.xcassets */,
 				68688B972701D84A00A99164 /* LaunchScreen.storyboard */,
@@ -134,7 +134,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68688B912701D84600A99164 /* ViewController.swift in Sources */,
+				68688B912701D84600A99164 /* ProfileViewController.swift in Sources */,
 				68688B8D2701D84600A99164 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,7 +293,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.skarry.Messenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -313,7 +313,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.skarry.Messenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
