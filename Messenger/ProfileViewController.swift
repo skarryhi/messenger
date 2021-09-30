@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     private lazy var width = UIScreen.main.bounds.width
     private lazy var height = UIScreen.main.bounds.height
@@ -19,16 +19,20 @@ class ProfileViewController: UIViewController {
                                            height: width * 0.64))
         iv.backgroundColor = #colorLiteral(red: 0.8949689865, green: 0.9089159369, blue: 0.1692225933, alpha: 1)
         iv.layer.cornerRadius = width * 0.32
+        iv.clipsToBounds = true
         return iv
     }()
     
     private lazy var editButton: UIButton = {
-        let but = UIButton(frame: CGRect(x: profilePhoto.frame.width - 40,
-                                         y: profilePhoto.frame.width - 30,
+        let but = UIButton(frame: CGRect(x: profilePhoto.frame.maxX - 40,
+                                         y: profilePhoto.frame.maxY - 30,
                                          width: 40, height: 40))
         but.setTitle("Edit", for: .normal)
         but.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         but.setTitleColor(#colorLiteral(red: 0, green: 0.4793452024, blue: 0.9990863204, alpha: 1), for: .normal)
+        but.addTarget(self,
+                         action: #selector(pressedEditButton),
+                         for: .touchUpInside)
         return but
     }()
     
@@ -38,9 +42,14 @@ class ProfileViewController: UIViewController {
                                         width: profilePhoto.frame.width * 0.7,
                                         height: profilePhoto.frame.width * 0.7))
         lbl.textAlignment = .center
-        lbl.font = UIFont.boldSystemFont(ofSize: 100)
+        lbl.font = UIFont.boldSystemFont(ofSize: profilePhoto.frame.width * 0.4)
         var initials = profileName.text?.split(separator: " ").compactMap { $0.first }
-        lbl.text = "\(initials?.first ?? " ")\(initials?.last ?? " ")"
+        if let initials = initials, initials.count > 0 {
+            lbl.text = "\(initials[0])"
+            if initials.count > 1 {
+                lbl.text! += "\(initials[1])"
+            }
+        }
         lbl.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         return lbl
     }()
@@ -79,25 +88,59 @@ class ProfileViewController: UIViewController {
         but.layer.cornerRadius = 15
         return but
     }()
-    
-    // в init еще не проинициилизированы view поэтому никакой frame мы вывести не можем
+
+    // в init еще не проинициилизированы views поэтому никакой frame мы вывести не можем
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         print(editButton.frame)
-        addSubviews()
-    }
-    
-    private func addSubviews() {
+        
         view.addSubview(profilePhoto)
         view.addSubview(profileName)
         profilePhoto.addSubview(profileInitials)
         view.addSubview(profileDescription)
-        profilePhoto.addSubview(editButton)
+        view.addSubview(editButton)
         view.addSubview(saveButton)
     }
+    
+    //MARK: - Editing Profile Photo
+    
+    func createAndPresentPickerController(for type: UIImagePickerController.SourceType) {
+        let vc = UIImagePickerController()
+        vc.sourceType = type
+        vc.allowsEditing = true
+        vc.delegate = self
+        self.present(vc, animated: true)
+    }
+    
+    @objc
+    func pressedEditButton() {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.view.tintColor = .black
+        actionSheet.addAction(UIAlertAction(title: "Take Photo", style: .default) { _ in
+            self.createAndPresentPickerController(for: .camera)
+        })
+        actionSheet.addAction(UIAlertAction(title: "Choose from library", style: .default) { _ in
+            self.createAndPresentPickerController(for: .photoLibrary)
+        })
+        actionSheet.addAction(UIAlertAction(title: "Remove Current Photo", style: .default) { _ in
+            self.profilePhoto.image = nil
+            self.profileInitials.isHidden = false
+        })
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        self.present(actionSheet, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        guard let image = info[.editedImage] as? UIImage else { return }
+        self.profileInitials.isHidden = true
+        self.profilePhoto.image = image
+    }
+    
+    //MARK: - Debug from hw1
     
     override func viewWillAppear(_ animated: Bool) {
         if viewControllerLifecycleIsOn {
