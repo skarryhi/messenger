@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVKit
 
 final class ProfileViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
@@ -108,11 +109,19 @@ final class ProfileViewController: UIViewController, UINavigationControllerDeleg
     //MARK: - Editing Profile Photo
     
     func createAndPresentPickerController(for type: UIImagePickerController.SourceType) {
-        let vc = UIImagePickerController()
-        vc.sourceType = type
-        vc.allowsEditing = true
-        vc.delegate = self
-        self.present(vc, animated: true)
+        if UIImagePickerController.isSourceTypeAvailable(type) &&
+            (type != .camera || AVCaptureDevice.authorizationStatus(for: .video) != .denied) {
+            let vc = UIImagePickerController()
+            vc.sourceType = type
+            vc.allowsEditing = true
+            vc.delegate = self
+            self.present(vc, animated: true)
+        } else {
+            let messege = type == .camera ? "Camera not allow" : "Gallery not allow"
+            let alert = UIAlertController(title: "Oops", message: messege, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default))
+            self.present(alert, animated: true)
+        }
     }
     
     @objc

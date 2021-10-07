@@ -7,8 +7,13 @@
 
 import UIKit
 
+#if DEBUG
+let applicationLifecycleIsOn: Bool = true
+let viewControllerLifecycleIsOn: Bool = true
+#else
 let applicationLifecycleIsOn: Bool = false
 let viewControllerLifecycleIsOn: Bool = false
+#endif
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
