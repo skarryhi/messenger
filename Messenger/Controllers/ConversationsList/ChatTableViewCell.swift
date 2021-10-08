@@ -28,6 +28,7 @@ class ChatTableViewCell: UITableViewCell, ConversationCellConfiguration {
     @IBOutlet weak var dateLable: UILabel!
     
     func configure(person: Person) {
+        selectionStyle = .none
         self.name = person.name
         self.message = person.message
         self.date = person.date
@@ -35,9 +36,12 @@ class ChatTableViewCell: UITableViewCell, ConversationCellConfiguration {
         self.hasUnreadMessages = person.hasUnreadMessages
         accessoryType = .disclosureIndicator
         if online {
-            nameLable.backgroundColor = #colorLiteral(red: 0.8949689865, green: 0.9089159369, blue: 0.1692225933, alpha: 1)
+            nameLable.backgroundColor = #colorLiteral(red: 1, green: 0.9981806874, blue: 0.6548470855, alpha: 1)
+            nameLable.layer.masksToBounds = true
+            nameLable.layer.cornerRadius = 5
         }
         nameLable.text = self.name == nil ? "User" : name
+        nameLable.font = UIFont.boldSystemFont(ofSize: 20)
         messageLable.text = self.message == nil ? "No messages yet" : self.message
         if let date = date {
             let formatter = DateFormatter()
