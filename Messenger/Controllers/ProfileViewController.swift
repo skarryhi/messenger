@@ -79,7 +79,7 @@ final class ProfileViewController: UIViewController, UINavigationControllerDeleg
     
     private lazy var saveButton: UIButton = {
         let but = UIButton(frame: CGRect(x: width * 0.15,
-                                         y: height * 0.91,
+                                         y: height * 0.85,
                                          width: width * 0.7,
                                          height: 40))
         but.setTitle("Save", for: .normal)

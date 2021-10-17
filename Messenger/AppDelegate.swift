@@ -27,12 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
-         let controller = ProfileViewController()
-         window?.rootViewController = controller
-         window?.makeKeyAndVisible()
+        let controller = ConversationsListViewController()
+        let navController = UINavigationController(rootViewController: controller)
+        window?.rootViewController = navController
+        window?.makeKeyAndVisible()
         return true
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         if applicationLifecycleIsOn {
             print("Application moved from Active to Inactive:", #function)
