@@ -21,6 +21,8 @@ class ConversationsListViewController: UIViewController {
     private lazy var height = UIScreen.main.bounds.height
     
     private var color = UserDefaults.standard.string(forKey: "color") ?? "white"
+    private var profileName: String? = "Marina Dudarenko"
+    private var profileImage: UIImage?
     
     let personsOnline = [Person(name: "Jon", message: "Hi, who are u?", date: Date(), online: true, hasUnreadMessages: true),
                          Person(name: "Mary", message: nil, date: Date(), online: true, hasUnreadMessages: false),
@@ -45,7 +47,13 @@ class ConversationsListViewController: UIViewController {
         mp.action = #selector(pressedProfileButton)
         mp.tintColor = #colorLiteral(red: 0.2553068697, green: 0.274802655, blue: 0.3004902601, alpha: 1)
         mp.target = self
-        mp.title = "MD"
+        var initials = profileName?.split(separator: " ").compactMap { $0.first }
+        if let initials = initials, initials.count > 0 {
+            mp.title = "\(initials[0])"
+            if initials.count > 1 {
+                mp.title! += "\(initials[1])"
+            }
+        }
         return mp
     }()
     
@@ -88,11 +96,18 @@ class ConversationsListViewController: UIViewController {
             break
         }
     }
-        
-        @objc private func pressedProfileButton() {
-            let vc = ProfileViewController()
-            self.present(vc, animated: true, completion: nil)
+    
+    @objc private func pressedProfileButton() {
+        let vc = ProfileViewController()
+        vc.profileName.text = profileName
+        vc.profilePhoto.image = profileImage
+        vc.profileInitials.text = myProfile.title
+        vc.profileInfoChanging = { image, name in
+            self.profileName = name
+            self.profileImage = image
         }
+        self.present(vc, animated: true, completion: nil)
+    }
     
     @objc private func pressedThemesButton() {
         let vc = ThemesViewController()
@@ -107,7 +122,7 @@ class ConversationsListViewController: UIViewController {
 }
 
 extension ConversationsListViewController: UITableViewDataSource {
-
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
@@ -152,7 +167,7 @@ extension ConversationsListViewController: UITableViewDelegate {
 }
 
 extension ConversationsListViewController: UISearchControllerDelegate {
-
+    
     func willPresentSearchController(_ searchController: UISearchController){
         print("\(type(of: self)) \(#function)")
     }

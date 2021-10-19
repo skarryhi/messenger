@@ -13,7 +13,9 @@ final class ProfileViewController: UIViewController, UINavigationControllerDeleg
     private lazy var width = UIScreen.main.bounds.width
     private lazy var height = UIScreen.main.bounds.height
     
-    private lazy var profilePhoto: UIImageView = {
+    var profileInfoChanging: ((UIImage?, String?) -> Void)?
+    
+    lazy var profilePhoto: UIImageView = {
         let iv = UIImageView(frame: CGRect(x: width * 0.18,
                                            y: height * 0.18,
                                            width: width * 0.64,
@@ -37,25 +39,21 @@ final class ProfileViewController: UIViewController, UINavigationControllerDeleg
         return but
     }()
     
-    private lazy var profileInitials: UILabel = {
+    lazy var profileInitials: UILabel = {
         let lbl = UILabel(frame: CGRect(x: profilePhoto.frame.width * 0.15,
                                         y:  profilePhoto.frame.width * 0.15,
                                         width: profilePhoto.frame.width * 0.7,
                                         height: profilePhoto.frame.width * 0.7))
         lbl.textAlignment = .center
         lbl.font = UIFont.boldSystemFont(ofSize: profilePhoto.frame.width * 0.4)
-        var initials = profileName.text?.split(separator: " ").compactMap { $0.first }
-        if let initials = initials, initials.count > 0 {
-            lbl.text = "\(initials[0])"
-            if initials.count > 1 {
-                lbl.text! += "\(initials[1])"
-            }
+        if profilePhoto.image != nil {
+            lbl.isHidden = true
         }
         lbl.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         return lbl
     }()
     
-    private lazy var profileName: UILabel = {
+    lazy var profileName: UILabel = {
         let lbl = UILabel(frame: CGRect(x: width * 0.1,
                                         y: height * 0.56,
                                         width: width * 0.8,
@@ -87,6 +85,9 @@ final class ProfileViewController: UIViewController, UINavigationControllerDeleg
         but.setTitleColor(#colorLiteral(red: 0, green: 0.4793452024, blue: 0.9990863204, alpha: 1), for: .normal)
         but.backgroundColor = #colorLiteral(red: 0.9646012187, green: 0.9647662044, blue: 0.9645908475, alpha: 1)
         but.layer.cornerRadius = 15
+        but.addTarget(self,
+                         action: #selector(pressedSaveButton),
+                         for: .touchUpInside)
         return but
     }()
 
@@ -124,8 +125,7 @@ final class ProfileViewController: UIViewController, UINavigationControllerDeleg
         }
     }
     
-    @objc
-    func pressedEditButton() {
+    @objc func pressedEditButton() {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         actionSheet.view.tintColor = .black
         actionSheet.addAction(UIAlertAction(title: "Take Photo", style: .default) { _ in
@@ -140,6 +140,13 @@ final class ProfileViewController: UIViewController, UINavigationControllerDeleg
         })
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         self.present(actionSheet, animated: true)
+    }
+    
+    @objc private func pressedSaveButton() {
+        if let profileInfoChanging = profileInfoChanging {
+            profileInfoChanging(profilePhoto.image, profileName.text)
+        }
+        self.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -184,6 +191,9 @@ final class ProfileViewController: UIViewController, UINavigationControllerDeleg
     override func viewWillDisappear(_ animated: Bool) {
         if viewControllerLifecycleIsOn {
             print("ViewController:", #function)
+        }
+        if let profileInfoChanging = profileInfoChanging {
+            profileInfoChanging(profilePhoto.image, profileName.text)
         }
         super.viewWillDisappear(animated)
     }
