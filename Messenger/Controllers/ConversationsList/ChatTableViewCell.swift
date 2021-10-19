@@ -27,6 +27,9 @@ class ChatTableViewCell: UITableViewCell, ConversationCellConfiguration {
     @IBOutlet weak var messageLable: UILabel!
     @IBOutlet weak var dateLable: UILabel!
     
+    
+    var calendar = Calendar.current
+    
     func configure(person: Person) {
         selectionStyle = .none
         self.name = person.name
@@ -44,9 +47,15 @@ class ChatTableViewCell: UITableViewCell, ConversationCellConfiguration {
         nameLable.font = UIFont.boldSystemFont(ofSize: 20)
         messageLable.text = self.message == nil ? "No messages yet" : self.message
         if let date = date {
+            let curDate = calendar.date(byAdding: .day, value: -1, to: Date())
             let formatter = DateFormatter()
-            formatter.setLocalizedDateFormatFromTemplate("HH:mm")
-            dateLable.text = formatter.string(from: date)
+            if let curDateInterval = curDate?.timeIntervalSince1970 {
+                formatter.setLocalizedDateFormatFromTemplate("HH:mm")
+                if curDateInterval - date.timeIntervalSince1970 > 0 {
+                    formatter.setLocalizedDateFormatFromTemplate("dd MMM")
+                }
+                dateLable.text = formatter.string(from: date)
+            }
         }
         if hasUnreadMessages {
             messageLable.font = UIFont.boldSystemFont(ofSize: 17)
