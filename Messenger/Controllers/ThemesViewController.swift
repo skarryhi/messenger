@@ -20,7 +20,7 @@ final class ThemeBatton: UIButton {
 
 class ThemesViewController: UIViewController {
     
-    var logThemeChanging: ((UIColor) -> Void)?
+    var logThemeChanging: ((UIColor, String) -> Void)?
     
     private var themeOne: ThemeBatton = {
         let but = ThemeBatton()
@@ -70,21 +70,19 @@ class ThemesViewController: UIViewController {
     
     @objc private func theme1() {
         guard let logThemeChanging = logThemeChanging else { return }
-        logThemeChanging(.white)
+        logThemeChanging(.white, "white")
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc private func theme2() {
         guard let logThemeChanging = logThemeChanging else { return }
-        logThemeChanging(#colorLiteral(red: 0.957610786, green: 0.9575006366, blue: 0.6299677491, alpha: 1))
+        logThemeChanging(#colorLiteral(red: 0.957610786, green: 0.9575006366, blue: 0.6299677491, alpha: 1), "yellow")
         self.dismiss(animated: true, completion: nil)
-        #colorLiteral(red: 0.957610786, green: 0.9575006366, blue: 0.6299677491, alpha: 1)
     }
     
     @objc private func theme3() {
         guard let logThemeChanging = logThemeChanging else { return }
-        logThemeChanging(#colorLiteral(red: 0.8643452525, green: 0.9681846499, blue: 0.7687479854, alpha: 1))
+        logThemeChanging(#colorLiteral(red: 0.8643452525, green: 0.9681846499, blue: 0.7687479854, alpha: 1), "green")
         self.dismiss(animated: true, completion: nil)
-        #colorLiteral(red: 0.8643452525, green: 0.9681846499, blue: 0.7687479854, alpha: 1)
     }
 }

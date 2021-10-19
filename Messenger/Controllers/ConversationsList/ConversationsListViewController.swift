@@ -20,6 +20,8 @@ class ConversationsListViewController: UIViewController {
     private lazy var width = UIScreen.main.bounds.width
     private lazy var height = UIScreen.main.bounds.height
     
+    private var color = UserDefaults.standard.string(forKey: "color") ?? "white"
+    
     let personsOnline = [Person(name: "Jon", message: "Hi, who are u?", date: Date(), online: true, hasUnreadMessages: true),
                          Person(name: "Mary", message: nil, date: Date(), online: true, hasUnreadMessages: false),
                          Person(name: "Ann", message: "Where?", date: Date(), online: true, hasUnreadMessages: true),
@@ -55,7 +57,7 @@ class ConversationsListViewController: UIViewController {
         bb.title = "Settings"
         return bb
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -72,18 +74,33 @@ class ConversationsListViewController: UIViewController {
         navigationItem.rightBarButtonItem = myProfile
         navigationItem.leftBarButtonItem = themesButton
         navigationController?.navigationBar.prefersLargeTitles = true
+        switch color {
+        case "white":
+            navigationController?.navigationBar.barTintColor = .white
+            navigationController?.navigationBar.backgroundColor = .white
+        case "yellow":
+            navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.957610786, green: 0.9575006366, blue: 0.6299677491, alpha: 1)
+            navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.957610786, green: 0.9575006366, blue: 0.6299677491, alpha: 1)
+        case "green":
+            navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.8643452525, green: 0.9681846499, blue: 0.7687479854, alpha: 1)
+            navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.8643452525, green: 0.9681846499, blue: 0.7687479854, alpha: 1)
+        default:
+            break
+        }
     }
-    
-    @objc private func pressedProfileButton() {
-        let vc = ProfileViewController()
-        self.present(vc, animated: true, completion: nil)
-    }
+        
+        @objc private func pressedProfileButton() {
+            let vc = ProfileViewController()
+            self.present(vc, animated: true, completion: nil)
+        }
     
     @objc private func pressedThemesButton() {
         let vc = ThemesViewController()
-        vc.logThemeChanging = { color in
+        vc.logThemeChanging = { color, name in
             self.navigationController?.navigationBar.barTintColor = color
             self.navigationController?.navigationBar.backgroundColor = color
+            UserDefaults.standard.set(name, forKey: "color")
+            UserDefaults.standard.synchronize()
         }
         self.present(vc, animated: true, completion: nil)
     }
