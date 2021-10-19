@@ -23,13 +23,14 @@ class ConversationsListViewController: UIViewController {
     private var color = UserDefaults.standard.string(forKey: "color") ?? "white"
     private var profileName: String? = "Marina Dudarenko"
     private var profileImage: UIImage?
+    var calendar = Calendar.current
     
-    let personsOnline = [Person(name: "Jon", message: "Hi, who are u?", date: Date(), online: true, hasUnreadMessages: true),
-                         Person(name: "Mary", message: nil, date: Date(), online: true, hasUnreadMessages: false),
-                         Person(name: "Ann", message: "Where?", date: Date(), online: true, hasUnreadMessages: true),
+    lazy var personsOnline = [Person(name: "Jon", message: "Hi, who are u?", date: Date(), online: true, hasUnreadMessages: true),
+                         Person(name: "Mary", message: nil, date: calendar.date(from: DateComponents(calendar: calendar, year: 2021, month: 2, day: 12, hour: 4, minute: 23, second: 2)), online: true, hasUnreadMessages: false),
+                         Person(name: "Ann", message: "Where?", date: calendar.date(from: DateComponents(calendar: calendar, year: 2020, month: 4, day: 8, hour: 4, minute: 23, second: 2)), online: true, hasUnreadMessages: true),
                          Person(name: nil, message: "Hi", date: Date(), online: true, hasUnreadMessages: false),
-                         Person(name: "Nina", message: "Pls", date: Date(), online: true, hasUnreadMessages: true)]
-    let personsOffline = [Person(name: "Sasha", message: nil, date: nil, online: false, hasUnreadMessages: false),
+                         Person(name: "Nina", message: "Pls", date: calendar.date(from: DateComponents(calendar: calendar, year: 2021, month: 9, day: 5, hour: 4, minute: 23, second: 2)), online: true, hasUnreadMessages: true)]
+    lazy var personsOffline = [Person(name: "Sasha", message: nil, date: nil, online: false, hasUnreadMessages: false),
                           Person(name: nil, message: "No, I'm hear", date: Date(), online: false, hasUnreadMessages: false),
                           Person(name: "L", message: "Ok", date: Date(), online: false, hasUnreadMessages: true),
                           Person(name: "Miya", message: "💗💗💗", date: Date(), online: false, hasUnreadMessages: true),
