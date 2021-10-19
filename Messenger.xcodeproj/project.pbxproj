@@ -13,6 +13,7 @@
 		682FACD3270F3EB200D61F0F /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682FACD2270F3EB200D61F0F /* ConversationsListViewController.swift */; };
 		682FACD6270F419D00D61F0F /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682FACD4270F419D00D61F0F /* ChatTableViewCell.swift */; };
 		682FACD7270F419D00D61F0F /* ChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 682FACD5270F419D00D61F0F /* ChatTableViewCell.xib */; };
+		684DD694271F0C9300A41B4F /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DD693271F0C9200A41B4F /* ThemesViewController.swift */; };
 		68688B8D2701D84600A99164 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68688B8C2701D84600A99164 /* AppDelegate.swift */; };
 		68688B912701D84600A99164 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68688B902701D84600A99164 /* ProfileViewController.swift */; };
 		68688B942701D84600A99164 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68688B922701D84600A99164 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 		682FACD2270F3EB200D61F0F /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		682FACD4270F419D00D61F0F /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		682FACD5270F419D00D61F0F /* ChatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatTableViewCell.xib; sourceTree = "<group>"; };
+		684DD693271F0C9200A41B4F /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		68688B892701D84600A99164 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68688B8C2701D84600A99164 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68688B902701D84600A99164 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				68688B902701D84600A99164 /* ProfileViewController.swift */,
+				684DD693271F0C9200A41B4F /* ThemesViewController.swift */,
 				682FACDA270F429100D61F0F /* ConversationsList */,
 				657B0544270FA60A00DDCEFC /* Conversation */,
 			);
@@ -185,6 +188,7 @@
 				68688B912701D84600A99164 /* ProfileViewController.swift in Sources */,
 				68688B8D2701D84600A99164 /* AppDelegate.swift in Sources */,
 				657B0549270FA80800DDCEFC /* MessageTableViewCell.swift in Sources */,
+				684DD694271F0C9300A41B4F /* ThemesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

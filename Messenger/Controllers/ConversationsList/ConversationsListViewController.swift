@@ -46,6 +46,15 @@ class ConversationsListViewController: UIViewController {
         mp.title = "MD"
         return mp
     }()
+    
+    private lazy var themesButton: UIBarButtonItem = {
+        let bb = UIBarButtonItem()
+        bb.action = #selector(pressedThemesButton)
+        bb.target = self
+        bb.tintColor = #colorLiteral(red: 0.2553068697, green: 0.274802655, blue: 0.3004902601, alpha: 1)
+        bb.title = "Settings"
+        return bb
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,11 +70,21 @@ class ConversationsListViewController: UIViewController {
         navigationItem.searchController =  UISearchController()
         navigationItem.searchController?.delegate = self
         navigationItem.rightBarButtonItem = myProfile
+        navigationItem.leftBarButtonItem = themesButton
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @objc private func pressedProfileButton() {
         let vc = ProfileViewController()
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    @objc private func pressedThemesButton() {
+        let vc = ThemesViewController()
+        vc.logThemeChanging = { color in
+            self.navigationController?.navigationBar.barTintColor = color
+            self.navigationController?.navigationBar.backgroundColor = color
+        }
         self.present(vc, animated: true, completion: nil)
     }
 }

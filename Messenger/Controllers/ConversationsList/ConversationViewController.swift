@@ -42,6 +42,7 @@ class ConversationViewController: UIViewController {
         view.addSubview(tableView)
         tableView.dataSource = self
         navigationItem.title = name
+        navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2553068697, green: 0.274802655, blue: 0.3004902601, alpha: 1)
     }
 }
 
